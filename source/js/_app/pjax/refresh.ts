@@ -84,7 +84,7 @@ export const siteRefresh = async (reload) => {
     postBeauty()
   })
 
-  const cpel = document.getElementById('copyright')
+  const cpel = document.getElementById('footer')
   if (cpel) {
     const comment = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
