@@ -1,18 +1,24 @@
+#waves{
+  width: 100%;
+  position:absolute;
+  bottom: 0px;
+}
+
+
 .waves {
   width: 100%;
   height: 15vh;
   margin-bottom: -.6875rem;
   min-height: 3.125rem;
   max-height: 9.375rem;
-  position:relative;
   content-visibility: auto;
   contain-intrinsic-size: 100vw 15vh;
-
   +mobile() {
     height: 10vh;
     contain-intrinsic-size: 100vw 10vh;
   }
 }
+
 /* Animation */
 .parallax>use {
   animation: wave 25s cubic-bezier(.55, .5, .45, .5) infinite;

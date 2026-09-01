@@ -48,6 +48,7 @@ html(lang=page.language?page.language:config.language, style=theme.grayMode ? 'f
                                         != `= ${subtitle} =`
 
                     != partial('_partials/header.pug', {}, {cache: true})
+                    
                 div(id="imgs" class="pjax")
                     if enableCover
                         if theme.homeConfig.gradient || enableFixedCover
@@ -61,15 +62,18 @@ html(lang=page.language?page.language:config.language, style=theme.grayMode ? 'f
                                         li(class="item" style=`background-image: url("${image}");`)
                             else
                                 img(src=covers loading="eager" decoding="async" fetchpriority="high" alt=title)
-            div(id="waves")
-                svg(class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto")
-                    defs
-                        path(id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z")
-                    g(class="parallax")
-                        use(xlink:href="#gentle-wave" x="48" y="0")
-                        use(xlink:href="#gentle-wave" x="48" y="3")
-                        use(xlink:href="#gentle-wave" x="48" y="5")
-                        use(xlink:href="#gentle-wave" x="48" y="7")
+                div(id="waves")
+                    svg(class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto")
+                        defs
+                            path(id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z")
+                        g(class="parallax")
+                            use(xlink:href="#gentle-wave" x="48" y="0")
+                            use(xlink:href="#gentle-wave" x="48" y="3")
+                            use(xlink:href="#gentle-wave" x="48" y="5")
+                            use(xlink:href="#gentle-wave" x="48" y="7")
+                div(id="angle")
+                    span
+                        i(class="ic i-angle-down")
             div(style="background:white;")
                 div(id="bg_div" style="background: url('/assets/background01.jpg') 80% 10% / cover;background-repeat:repeat-y;background-attachment:fixed;")
                 div(id="bg_mask" style="opacity:0.82;")
@@ -154,16 +158,17 @@ html(lang=page.language?page.language:config.language, style=theme.grayMode ? 'f
         script(src="/live2d-web/live2d-web.js")
 
         script.
-            window.onload = function() {
-                console.log('screen.width',screen.width);
-                if (screen.width >= 768) {
+            window.addEventListener('load', function() {
+                var innerWidth = window.innerWidth || document.documentElement.clientWidth;
+                console.log('window.innerWidth',window.innerWidth);
+                if (innerWidth >= 768) {
                     initLive2d({
                         live2d_path: '/live2d-web/',
                         model_path: '/live2d-web/model/'
                     });
                 }
-            };
-            
+            })
+
         != shokax_inject('bodyEnd')
 
 
