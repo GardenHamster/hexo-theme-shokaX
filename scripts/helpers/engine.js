@@ -130,10 +130,13 @@ hexo.extend.helper.register("_cover_index", function(item) {
     return randomBG(6, image_server, index_images.length === 0 ? image_list : index_images);
   }
 });
+
+// 获取background相对于主页的路径
 hexo.extend.helper.register("_post_background", function(item) {
   if(!item?.background) return '';
   return this._image_url(item.background, item.path);
 });
+
 hexo.extend.helper.register("_permapath", function(str) {
   const { permalink } = hexo.config;
   let url = str.replace(/index\.html$/, "");

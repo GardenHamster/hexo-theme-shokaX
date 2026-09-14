@@ -18,6 +18,23 @@ import { Loader, isOutime } from '../globals/thirdparty'
 import { tabFormat } from '../page/tab'
 import { lazyLoad } from 'unlazy'
 
+const refreshPostBackground = () => {
+  const article = document.getElementById('article')
+  const background = article?.dataset.background || '/assets/background.jpg'
+  const position = article?.dataset.backgroundPosition || '80% 10%'
+  const opacity = article?.dataset.backgroundOpacity || '0.82'
+  const image = `url(${JSON.stringify(background)})`
+  const backgroundLayer = document.getElementById('bg_div')
+  if (backgroundLayer) {
+    backgroundLayer.style.backgroundImage = image
+    backgroundLayer.style.backgroundPosition = position
+  }
+  const mask = document.getElementById('bg_mask')
+  if (mask){
+    mask.style.opacity = opacity
+  }
+}
+
 export const pjaxReload = () => {
   pagePosition()
 
@@ -44,6 +61,7 @@ export const siteRefresh = async (reload) => {
 
   setLocalHash(0)
   setLocalUrl(window.location.href)
+  refreshPostBackground()
 
   vendorCss('katex');
   await import('katex/dist/contrib/copy-tex.mjs')

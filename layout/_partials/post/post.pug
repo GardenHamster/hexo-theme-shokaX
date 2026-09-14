@@ -1,5 +1,9 @@
 - var temp = post.lang || config.language
-article(id="article" itemscope itemtype="http://schema.org/Article" class="post block" lang=temp)
+- var postBackground = _post_background(post) || '/assets/background.jpg'
+- var postBackgroundPosition = post.backgroundPosition || '80% 10%'
+- var postBackgroundOpacity = post.backgroundOpacity === undefined ? 0.82 : post.backgroundOpacity
+//- 将背景和遮罩透明度信息写在article标签内,pjax刷新时读取相关信息修改背景,实现文章背景跟随文件切换的效果
+article(id="article" itemscope itemtype="http://schema.org/Article" class="post block" lang=temp data-background=postBackground data-background-position=postBackgroundPosition data-background-opacity=postBackgroundOpacity)
     link(itemprop="mainEntityOfPage" href!=post.permalink)
     span(hidden itemprop="author" itemscope itemtype="http://schema.org/Person")
         meta(itemprop="image" content=url_for(theme.statics + theme.assets + '/' + theme.sidebar.avatar))

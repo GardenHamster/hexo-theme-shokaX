@@ -9,6 +9,9 @@
         id: post.permalink,
         url: post.permalink,
         title: post.title,
+        background: post.background,
+        backgroundPosition: post.backgroundPosition,
+        backgroundOpacity: post.backgroundOpacity,
         date_published: moment(post.date).toISOString(),
         content_html: post.content || '',
         tags: [...(post.categories ? post.categories.toArray() : []).map(({ name }) => name), ...(post.tags ? post.tags.toArray() : []).map(({ name }) => name)]
