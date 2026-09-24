@@ -37,13 +37,13 @@ const randomBG = function(count = 1, image_server = null, image_list = []) {
     return image_server + "?" + Math.floor(Math.random() * 999999);
   }
   const parseImage = function(img, size) {
-    if (img.startsWith("//") || img.startsWith("http")) {
-      return img;
+    if (img.url.startsWith("//") || img.url.startsWith("http")) {
+      return { url: img.url, position: img.position || '50% 50%' };
     } else if (hexo.theme.config.experiments?.usingRelative) {
-      return img;
+      return { url: img.url, position: img.position || '50% 50%' };
     } else {
       console.warn("sinaimg blocked all request from outside website,so don't use this format");
-      return `https://tva${randomServer}.sinaimg.cn/` + size + "/" + img;
+      return { url: `https://tva${randomServer}.sinaimg.cn/${size}/${img}`, position: '50% 50%' };
     }
   };
   if (count && count > 1) {
@@ -137,9 +137,9 @@ hexo.extend.helper.register("_cover", function(item, num) {
 hexo.extend.helper.register("_cover_index", function(item) {
   const { index_images, image_list, image_server } = hexo.theme.config;
   if (item.cover) {
-    return this._image_url(item.cover, item.path);
+    return { url: this._image_url(item.cover, item.path), position: item.coverPosition};
   } else if (item.photos && item.photos.length > 0) {
-    return this._image_url(item.photos[0], item.path);
+    return { url: this._image_url(item.photos[0], item.path), position:'50% 50%'};
   } else {
     return randomBG(6, image_server, index_images.length === 0 ? image_list : index_images);
   }

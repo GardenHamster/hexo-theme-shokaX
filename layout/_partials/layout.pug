@@ -20,9 +20,9 @@ html(lang=page.language?page.language:config.language, style=theme.grayMode ? 'f
                 link(rel="preload" href=theme.homeConfig.fixedCover as="image" fetchpriority="high")
             else if Array.isArray(covers)
                 each image in covers
-                    link(rel="preload" href!=image as="image" fetchpriority="high")
+                    link(rel="preload" href!=image.url as="image" fetchpriority="high")
             else
-                link(rel="preload" href!=covers as="image" fetchpriority="high")
+                link(rel="preload" href!=covers.url as="image" fetchpriority="high")
 
         != partial('_partials/head/head_com.pug')
         != shokax_inject('head')
@@ -59,9 +59,9 @@ html(lang=page.language?page.language:config.language, style=theme.grayMode ? 'f
                             if Array.isArray(covers)
                                 ul
                                     each image in covers
-                                        li(class="item" style=`background-image: url("${image}");`)
+                                        li(class="item" style=`background: url('${image.url}') ${image.position} / cover;`)
                             else
-                                img(src=covers loading="eager" decoding="async" fetchpriority="high" alt=title)
+                                img(src=covers.url loading="eager" decoding="async" fetchpriority="high" alt=title style=`object-fit:cover;object-position:${covers.position}`)
                 div(id="waves")
                     svg(class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto")
                         defs
