@@ -6,7 +6,7 @@ mixin navpost(item, type)
     if enableNextGradientCover
         != _url(item.path, itemlink, {itemprop: 'url', rel: type, title: postText, style: `background-image: linear-gradient(to bottom right, ${random_color()}, ${random_color()});`})
     else
-        != _url(item.path, itemlink, {itemprop: 'url', rel: type, 'data-background-image': _cover(item), title: postText})
+        != _url(item.path, itemlink, {itemprop: 'url', rel: type, title: postText, style:`background-size: cover; background-position: ${item.coverPosition}`, 'data-background-image': _cover(item)})
 
 div(class="post-nav")
     div(class="item left")

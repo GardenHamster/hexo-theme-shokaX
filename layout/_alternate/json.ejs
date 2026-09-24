@@ -12,6 +12,7 @@
         background: post.background,
         backgroundPosition: post.backgroundPosition,
         backgroundOpacity: post.backgroundOpacity,
+        coverPosition: post.coverPosition,
         date_published: moment(post.date).toISOString(),
         content_html: post.content || '',
         tags: [...(post.categories ? post.categories.toArray() : []).map(({ name }) => name), ...(post.tags ? post.tags.toArray() : []).map(({ name }) => name)]

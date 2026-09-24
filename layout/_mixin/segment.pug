@@ -3,6 +3,7 @@ include postmeta.pug
 mixin SMRender(item, lazy)
     - var link1 = item.link || item.path
     - var gradient = theme?.experiments?.gradient
+    - var coverPositionStyle = item.coverPosition ? `object-fit:cover;object-position:${item.coverPosition}` : ''
     if item.link
         - var postTitleIcon = '<i class="ic i-link-alt"></i>'
     - var postText = item.title || item.link || __('post.untitled')
@@ -12,9 +13,9 @@ mixin SMRender(item, lazy)
         else
             div(class="cover")
                 if lazy
-                    != _url(link1, '<img loading="lazy" decoding="async" data-src="'+ _cover(item) +'" alt="article cover">', {itemprop: 'url', title: postText})
+                    != _url_img(link1, `<img loading="lazy" decoding="async" data-src="${decodeURI(_cover(item))}" alt="article cover" style="${coverPositionStyle}">`, {itemprop: 'url', title: postText})
                 else
-                    != _url(link1, '<img loading="eager" decoding="async" src="'+ _cover(item) +'" alt="article cover">', {itemprop: 'url', title: postText})
+                    != _url_img(link1, `<img loading="eager" decoding="async" src="${decodeURI(_cover(item))}" alt="article cover" style="${coverPositionStyle}">`, {itemprop: 'url', title: postText})
         div(class="info")
             +PMRender(item)
             h3

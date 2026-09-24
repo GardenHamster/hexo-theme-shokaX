@@ -56,7 +56,7 @@ html(lang=page.language?page.language:config.language, style=theme.grayMode ? 'f
                             - var coverImage = theme.homeConfig?.fixedCover || "https://7ed.net/bing/api"
                             img(src=coverImage loading="eager" decoding="async" fetchpriority="high" alt=title)
                         else
-                            if covers.length === 6
+                            if Array.isArray(covers)
                                 ul
                                     each image in covers
                                         li(class="item" style=`background-image: url("${image}");`)
@@ -75,7 +75,7 @@ html(lang=page.language?page.language:config.language, style=theme.grayMode ? 'f
                     a(href="#main")
                         i(class="ic i-angle-down")
             div(style="background: white; position: relative;")
-                div(id="bg_div" style="background: url('/assets/background.jpg') 80% 10% / cover;background-repeat:repeat-y;background-attachment:fixed;")
+                div(id="bg_div" style="background: url('/assets/background.jpg') 70% 10% / cover;background-repeat:repeat-y;background-attachment:fixed;")
                 div(id="bg_mask" style="opacity:0.82;")
                 main
                     div(class="inner")

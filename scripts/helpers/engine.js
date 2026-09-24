@@ -101,6 +101,20 @@ hexo.extend.helper.register("_url", function(path, text, options = {}) {
   }
   return (0, import_hexo_util.htmlTag)(tag, attrs, decodeURI(text), false);
 });
+hexo.extend.helper.register("_url_img", function(path, text, options = {}) {
+  if (!path) {
+    return;
+  }
+  let tag = "a";
+  let attrs = { href: import_hexo_util.url_for.call(this, path), class: void 0, external: void 0, rel: void 0, "data-url": void 0 };
+  for (const key in options) {
+    attrs[key] = options[key];
+  }
+  if (attrs.class && Array.isArray(attrs.class)) {
+    attrs.class = attrs.class.join(" ");
+  }
+  return (0, import_hexo_util.htmlTag)(tag, attrs, text, false);
+});
 hexo.extend.helper.register("_image_url", function(img, path = "") {
   const { statics } = hexo.theme.config;
   const { post_asset_folder } = hexo.config;
