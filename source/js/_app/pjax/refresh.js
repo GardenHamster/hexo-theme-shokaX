@@ -13,10 +13,15 @@ import { lazyLoad } from 'unlazy';
 
 const refreshPostBackground = () => {
     const article = document.getElementById('article');
-    const background = article?.dataset.background || '/assets/background.jpg';
-    const position = article?.dataset.backgroundPosition || '70% 10%';
-    const opacity = article?.dataset.backgroundOpacity || '0.82';
-    const image = `url(${JSON.stringify(background)})`;
+    const background = article?.dataset.background || '';
+    const position = article?.dataset.backgroundPosition || '50% 50%';
+    const opacity = article?.dataset.backgroundOpacity || '0.9';
+    if(!background){
+        background = theme.background?.url || '';
+        position = theme.background?.position || '50% 50%';
+        opacity = theme.background?.opacity || '0.9';
+    }
+    const image = `url(${background})`;
     const backgroundLayer = document.getElementById('bg_div');
     if (backgroundLayer) {
         backgroundLayer.style.backgroundImage = image;

@@ -10,6 +10,9 @@ if (theme.quicklink.ignores)
 - var enableFixedCover = theme.homeConfig?.fixedCover
 - var enablePreload = theme.experiments?.coverConfig?.enablePreload
 - var enableCover = theme.experiments?.coverConfig?.enableCover
+- var backgroundPosition = theme.background?.position || '50% 50%'
+- var backgroundOpacity = theme.background?.opacity || 0.9
+- var backgroundStyle = theme.background?.url ? `background: url('${theme.background.url}') ${backgroundPosition} / cover;background-repeat:repeat-y;background-attachment:fixed;` : ''
 
 doctype html
 html(lang=page.language?page.language:config.language, style=theme.grayMode ? 'filter: grayscale(1);':'' )
@@ -75,8 +78,8 @@ html(lang=page.language?page.language:config.language, style=theme.grayMode ? 'f
                     a(href="#main")
                         i(class="ic i-angle-down")
             div(style="background: white; position: relative;")
-                div(id="bg_div" style="background: url('/assets/background.jpg') 70% 10% / cover;background-repeat:repeat-y;background-attachment:fixed;")
-                div(id="bg_mask" style="opacity:0.82;")
+                div(id="bg_div" style=`${backgroundStyle}`)
+                div(id="bg_mask" style=`opacity:${backgroundOpacity}`)
                 main
                     div(class="inner")
                         div(id="main" class="pjax")
@@ -159,9 +162,11 @@ html(lang=page.language?page.language:config.language, style=theme.grayMode ? 'f
 
         script.
             window.addEventListener('load', function() {
-                var innerWidth = window.innerWidth || document.documentElement.clientWidth;
-                console.log('window.innerWidth',window.innerWidth);
-                if (innerWidth >= 768) {
+                const innerWidth = window.innerWidth || document.documentElement.clientWidth;
+                const userAgent = navigator.userAgent.toLowerCase();
+                const isMobileUA = /android|iphone|ipad|ipod|windows phone|iemobile|opera mini|mobile/i.test(userAgent);
+                console.log('live2dLoad',`innerWidth=${innerWidth}`,`isMobileUA=${isMobileUA}`);
+                if (innerWidth > 768 && !isMobileUA) {
                     initLive2d({
                         live2d_path: '/live2d-web/',
                         model_path: '/live2d-web/model/'

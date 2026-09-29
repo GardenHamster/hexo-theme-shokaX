@@ -36,6 +36,7 @@ hexo.extend.generator.register("script", function(locals) {
       normal: theme.assets + "/favicon.ico",
       hidden: theme.assets + "/failure.ico"
     },
+    background: theme.background,
     darkmode: theme.darkmode,
     auto_dark: theme.auto_dark,
     auto_scroll: theme.auto_scroll,
@@ -91,6 +92,22 @@ hexo.extend.generator.register("script", function(locals) {
   }
   if (theme?.audio) {
     siteConfig.audio = theme.audio;
+  }
+  if(!theme?.background){
+    siteConfig.background={
+      url:'',
+      position:'50% 50%',
+      opacity:0.9
+    }
+  }
+  if(!theme.background?.url){
+    siteConfig.background.url = ''
+  }
+  if(!theme.background?.position){
+    siteConfig.background.position = '50% 50%'
+  }
+  if(!theme.background?.opacity){
+    siteConfig.background.opacity = 0.9
   }
   let enterPoint, patchDir;
   if (import_node_fs.default.existsSync("themes/shokaX/source/js/_app/pjax/siteInit.ts")) {

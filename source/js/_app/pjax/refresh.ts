@@ -19,11 +19,18 @@ import { tabFormat } from '../page/tab'
 import { lazyLoad } from 'unlazy'
 
 const refreshPostBackground = () => {
+  const theme = CONFIG as any;
+  console.log('theme',theme);
   const article = document.getElementById('article')
-  const background = article?.dataset.background || '/assets/background.jpg'
-  const position = article?.dataset.backgroundPosition || '70% 10%'
-  const opacity = article?.dataset.backgroundOpacity || '0.82'
-  const image = `url(${JSON.stringify(background)})`
+  let background = article?.dataset.background || ''
+  let position = article?.dataset.backgroundPosition || '50% 50%'
+  let opacity = article?.dataset.backgroundOpacity || '0.9'
+  if(!background){
+      background = theme.background?.url || '';
+      position = theme.background?.position || '50% 50%';
+      opacity = theme.background?.opacity || '0.9';
+  }
+  const image = `url(${background})`;
   const backgroundLayer = document.getElementById('bg_div')
   if (backgroundLayer) {
     backgroundLayer.style.backgroundImage = image
