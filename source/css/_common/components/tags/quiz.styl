@@ -165,10 +165,14 @@ $times {
       }
 
       &.right {
+        color: var(--color-green);
         @extend $check;
       }
 
       &.wrong {
+        color: var(--color-red);
+        text-decoration: line-through;
+        text-decoration-thickness: 2px;
         @extend $times;
       }
     }

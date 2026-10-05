@@ -2,7 +2,7 @@
 - var postBackground = _post_background(post) || ''
 - var postBackgroundPosition = postBackground ? (post.backgroundPosition || '50% 50%') : '50% 50%'
 - var postBackgroundOpacity = postBackground ? (post.backgroundOpacity === undefined ? 0.9 : post.backgroundOpacity) : 0.9
-- var postCoverPosition = post.coverPosition || '50% 50%'
+- var postCoverPosition = post.coverPosition || '50% 0%'
 
 if !postBackground
     - postBackground = theme.background?.url || ''
