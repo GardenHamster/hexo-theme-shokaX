@@ -1,12 +1,12 @@
 - var temp = post.lang || config.language
 - var postBackground = _post_background(post) || ''
-- var postBackgroundPosition = postBackground ? (post.backgroundPosition || '50% 50%') : '50% 50%'
+- var postBackgroundPosition = postBackground ? (post.backgroundPosition || '50% 0%') : '50% 0%'
 - var postBackgroundOpacity = postBackground ? (post.backgroundOpacity === undefined ? 0.9 : post.backgroundOpacity) : 0.9
 - var postCoverPosition = post.coverPosition || '50% 0%'
 
 if !postBackground
     - postBackground = theme.background?.url || ''
-    - postBackgroundPosition = theme.background?.position || '50% 50%'
+    - postBackgroundPosition = theme.background?.position || '50% 0%'
     - postBackgroundOpacity = theme.background?.opacity || 0.9
 
 //- 将背景和遮罩透明度信息写在article标签内,pjax刷新时读取相关信息修改背景,实现文章背景跟随文件切换的效果

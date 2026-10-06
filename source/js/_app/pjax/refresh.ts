@@ -20,15 +20,15 @@ import { lazyLoad } from 'unlazy'
 
 const refreshPostBackground = () => {
   const theme = CONFIG as any;
-  console.log('theme',theme);
+  console.log('theme', theme);
   const article = document.getElementById('article')
   let background = article?.dataset.background || ''
-  let position = article?.dataset.backgroundPosition || '50% 50%'
+  let position = article?.dataset.backgroundPosition || '50% 0%'
   let opacity = article?.dataset.backgroundOpacity || '0.9'
-  if(!background){
-      background = theme.background?.url || '';
-      position = theme.background?.position || '50% 50%';
-      opacity = theme.background?.opacity || '0.9';
+  if (!background) {
+    background = theme.background?.url || '';
+    position = theme.background?.position || '50% 0%';
+    opacity = theme.background?.opacity || '0.9';
   }
   const image = `url(${background})`;
   const backgroundLayer = document.getElementById('bg_div')
@@ -37,7 +37,7 @@ const refreshPostBackground = () => {
     backgroundLayer.style.backgroundPosition = position
   }
   const mask = document.getElementById('bg_mask')
-  if (mask){
+  if (mask) {
     mask.style.opacity = opacity
   }
 }
@@ -105,7 +105,7 @@ export const siteRefresh = async (reload) => {
   sideBarTab()
   sidebarTOC()
 
-  import('../page/post').then(({postBeauty}) => {
+  import('../page/post').then(({ postBeauty }) => {
     postBeauty()
   })
 
@@ -115,13 +115,13 @@ export const siteRefresh = async (reload) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           if (__shokax_waline__) {
-            import('../components/comments').then(({walinePageview, walineComment}) => {
+            import('../components/comments').then(({ walinePageview, walineComment }) => {
               walinePageview()
               walineComment()
             })
           }
           if (__shokax_twikoo__) {
-            import('../components/tcomments').then(({twikooComment}) => {
+            import('../components/tcomments').then(({ twikooComment }) => {
               twikooComment()
             })
           }
@@ -139,13 +139,13 @@ export const siteRefresh = async (reload) => {
   lazyLoad()
 
   if (__shokax_waline__) {
-    import('../components/comments').then(async ({walineRecentComments}) => {
+    import('../components/comments').then(async ({ walineRecentComments }) => {
       await walineRecentComments()
     })
   }
 
   if (__shokax_twikoo__) {
-    import('../components/tcomments').then(async ({twikooRecentComments}) => {
+    import('../components/tcomments').then(async ({ twikooRecentComments }) => {
       await twikooRecentComments()
     })
   }

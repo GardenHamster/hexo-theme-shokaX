@@ -14,11 +14,11 @@ import { lazyLoad } from 'unlazy';
 const refreshPostBackground = () => {
     const article = document.getElementById('article');
     const background = article?.dataset.background || '';
-    const position = article?.dataset.backgroundPosition || '50% 50%';
+    const position = article?.dataset.backgroundPosition || '50% 0%';
     const opacity = article?.dataset.backgroundOpacity || '0.9';
-    if(!background){
+    if (!background) {
         background = theme.background?.url || '';
-        position = theme.background?.position || '50% 50%';
+        position = theme.background?.position || '50% 0%';
         opacity = theme.background?.opacity || '0.9';
     }
     const image = `url(${background})`;
@@ -28,7 +28,7 @@ const refreshPostBackground = () => {
         backgroundLayer.style.backgroundPosition = position;
     }
     const mask = document.getElementById('bg_mask');
-    if (mask){
+    if (mask) {
         mask.style.opacity = opacity;
     }
 };

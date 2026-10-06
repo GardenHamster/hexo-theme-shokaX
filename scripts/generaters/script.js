@@ -24,7 +24,7 @@ var import_package = __toESM(require("../../package.json"));
 var import_node_fs = __toESM(require("node:fs"));
 var import_esbuild = require("esbuild");
 var import_utils = require("../utils");
-hexo.extend.generator.register("script", function(locals) {
+hexo.extend.generator.register("script", function (locals) {
   const config = hexo.config;
   const theme = hexo.theme.config;
   const siteConfig = {
@@ -93,20 +93,20 @@ hexo.extend.generator.register("script", function(locals) {
   if (theme?.audio) {
     siteConfig.audio = theme.audio;
   }
-  if(!theme?.background){
-    siteConfig.background={
-      url:'',
-      position:'50% 50%',
-      opacity:0.9
+  if (!theme?.background) {
+    siteConfig.background = {
+      url: '',
+      position: '50% 0%',
+      opacity: 0.9
     }
   }
-  if(!theme.background?.url){
+  if (!theme.background?.url) {
     siteConfig.background.url = ''
   }
-  if(!theme.background?.position){
-    siteConfig.background.position = '50% 50%'
+  if (!theme.background?.position) {
+    siteConfig.background.position = '50% 0%'
   }
-  if(!theme.background?.opacity){
+  if (!theme.background?.opacity) {
     siteConfig.background.opacity = 0.9
   }
   let enterPoint, patchDir;
@@ -162,7 +162,7 @@ hexo.extend.generator.register("script", function(locals) {
       const result = hexo.render.renderSync({ text: fileText, engine: "js" });
       res.push({
         path: theme.js + "/" + file,
-        data: function() {
+        data: function () {
           return result;
         }
       });
@@ -170,14 +170,14 @@ hexo.extend.generator.register("script", function(locals) {
       const result = hexo.render.renderSync({ text: fileText, engine: "css" });
       res.push({
         path: theme.css + "/" + file,
-        data: function() {
+        data: function () {
           return result;
         }
       });
     } else {
       res.push({
         path: theme.js + "/" + file,
-        data: function() {
+        data: function () {
           return fileText;
         }
       });
@@ -204,7 +204,7 @@ hexo.extend.generator.register("script", function(locals) {
     });
     res.push({
       path: theme.js + "/cf-patch.js",
-      data: function() {
+      data: function () {
         return import_node_fs.default.readFileSync("./cf-patch.js", { encoding: "utf-8" });
       }
     });
