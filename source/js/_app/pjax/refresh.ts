@@ -20,7 +20,6 @@ import { lazyLoad } from 'unlazy'
 
 const refreshPostBackground = () => {
   const theme = CONFIG as any;
-  console.log('theme',theme);
   const article = document.getElementById('article')
   let background = article?.dataset.background || ''
   let position = article?.dataset.backgroundPosition || '50% 50%'

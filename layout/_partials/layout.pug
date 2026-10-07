@@ -7,6 +7,7 @@ if (theme.quicklink.ignores)
     - ignores.push(theme.quicklink.ignores)
 
 - var covers = _cover_index(page, 6)
+- var fullCoverList = _cover_list()
 - var enableFixedCover = theme.homeConfig?.fixedCover
 - var enablePreload = theme.experiments?.coverConfig?.enablePreload
 - var enableCover = theme.experiments?.coverConfig?.enableCover
@@ -60,9 +61,10 @@ html(lang=page.language?page.language:config.language, style=theme.grayMode ? 'f
                             img(src=coverImage loading="eager" decoding="async" fetchpriority="high" alt=title)
                         else
                             if Array.isArray(covers)
-                                ul
-                                    each image in covers
-                                        li(class="item" style=`background: url('${image.url}') ${image.position} / cover;`)
+                                ul(id="cover_ul")
+                                div(id="cover_list" style="display:none")
+                                    each image in fullCoverList
+                                        div(data-cover-url=image.url data-cover-position=image.position)
                             else
                                 img(src=covers.url loading="eager" decoding="async" fetchpriority="high" alt=title style=`object-fit:cover;object-position:${covers.position}`)
                 div(id="waves")
@@ -160,6 +162,24 @@ html(lang=page.language?page.language:config.language, style=theme.grayMode ? 'f
         != _js('siteInit.js')
         script(src="/live2d-web/live2d-web.js")
 
+        script.
+            window.addEventListener('DOMContentLoaded', function() {
+                const imgCount = 6;
+                const domCoverList = document.querySelector('#cover_list');
+                const coverItems = [...domCoverList.children].map(el =>({url:el.dataset.coverUrl,position:el.dataset.coverPosition}));
+                const shuffled = [...coverItems].sort(() => Math.random() - 0.5);//洗牌
+                const randomitems = shuffled.slice(0, imgCount);
+                const domCoverUL = document.querySelector('#cover_ul');
+                domCoverUL.innerHTML = '';
+                for (let i = 0; i < randomitems.length; i++){
+                    const randomItem = randomitems[i];
+                    const domLI = document.createElement('li');
+                    domLI.classList.add('item');
+                    domLI.style.background = `url('${randomItem.url}') ${randomItem.position} / cover`;
+                    domCoverUL.appendChild(domLI);
+                }
+            })
+        
         script.
             window.addEventListener('load', function() {
                 const innerWidth = window.innerWidth || document.documentElement.clientWidth;

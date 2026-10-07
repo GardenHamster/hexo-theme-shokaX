@@ -24,6 +24,17 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
 var import_hexo_util = require("hexo-util");
 var import_node_fs = __toESM(require("node:fs"));
 const randomServer = parseInt(String(Math.random() * 4), 10) + 1;
+const parseImage = function(img, size) {
+  if (img.url.startsWith("//") || img.url.startsWith("http")) {
+    return { url: img.url, position: img.position || '50% 50%' };
+  } else if (hexo.theme.config.experiments?.usingRelative) {
+    return { url: img.url, position: img.position || '50% 50%' };
+  } else {
+    console.warn("sinaimg blocked all request from outside website,so don't use this format");
+    return { url: `https://tva${randomServer}.sinaimg.cn/${size}/${img}`, position: '50% 50%' };
+  }
+};
+
 const randomBG = function(count = 1, image_server = null, image_list = []) {
   let i;
   if (image_server) {
@@ -36,19 +47,9 @@ const randomBG = function(count = 1, image_server = null, image_list = []) {
     }
     return image_server + "?" + Math.floor(Math.random() * 999999);
   }
-  const parseImage = function(img, size) {
-    if (img.url.startsWith("//") || img.url.startsWith("http")) {
-      return { url: img.url, position: img.position || '50% 50%' };
-    } else if (hexo.theme.config.experiments?.usingRelative) {
-      return { url: img.url, position: img.position || '50% 50%' };
-    } else {
-      console.warn("sinaimg blocked all request from outside website,so don't use this format");
-      return { url: `https://tva${randomServer}.sinaimg.cn/${size}/${img}`, position: '50% 50%' };
-    }
-  };
   if (count && count > 1) {
     let shuffled = image_list.slice(0);
-    while (shuffled.length <= 6) {
+    while (shuffled.length <= count) {
       shuffled = shuffled.concat(image_list.slice(0));
     }
     i = shuffled.length;
@@ -134,6 +135,7 @@ hexo.extend.helper.register("_cover", function(item, num) {
     return randomBG(num || 1, image_server, image_list);
   }
 });
+
 hexo.extend.helper.register("_cover_index", function(item) {
   const { index_images, image_list, image_server } = hexo.theme.config;
   if (item.cover) {
@@ -143,6 +145,17 @@ hexo.extend.helper.register("_cover_index", function(item) {
   } else {
     return randomBG(6, image_server, index_images.length === 0 ? image_list : index_images);
   }
+});
+
+// 获取所有cover
+hexo.extend.helper.register("_cover_list", function() {
+  const imgList = [];
+  const { index_images, image_list, image_server } = hexo.theme.config;
+  for (let i = 0; i < image_list.length; i++){
+    const imgItem = image_list[i];
+    imgList.push({ url: imgItem.url, position: imgItem.position || '50% 50%' });
+  }
+  return imgList;
 });
 
 // 获取background相对于主页的路径
