@@ -62,6 +62,8 @@ html(lang=page.language?page.language:config.language, style=theme.grayMode ? 'f
                         else
                             if Array.isArray(covers)
                                 ul(id="cover_ul")
+                                    each image in covers
+                                        li(class="item" style=`background: url('${image.url}') ${image.position} / cover;`)
                                 div(id="cover_list" style="display:none")
                                     each image in fullCoverList
                                         div(data-cover-url=image.url data-cover-position=image.position)
