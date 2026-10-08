@@ -79,6 +79,7 @@ export const siteRefresh = async (reload) => {
       if (entry.isIntersecting) {
         const el = entry.target as HTMLElement
         el.style.backgroundImage = `url("${el.getAttribute('data-background-image')}")`
+        el.style.backgroundPosition = `50% 0%`
         el.removeAttribute('data-background-image')
         observer.unobserve(el)
       }
