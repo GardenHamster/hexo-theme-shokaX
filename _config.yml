@@ -287,6 +287,12 @@ footer:
     beian: "xxx" # 网安备案号
     recordcode: "xxx" # 网安备案链接中的recordcode参数
 
+# 默认背景图
+background:
+  url: /assets/background.jpg
+  position: 70% 10%
+  opacity: 0.88
+
 post:
   count: true
 
